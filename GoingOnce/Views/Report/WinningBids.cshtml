@@ -1,0 +1,52 @@
+﻿@model GoingOnce.Models.ItemCatalogModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
+}
+
+<div style="display:inline;">
+    <img src="~/Images/ccs.png" style="opacity:0.75; max-height:75px;" />
+</div>
+<h1>@Model.AuctionEvent.EventName - @Model.AuctionEvent.EventDate.ToString("yyyy/MM/dd")</h1>
+<h2>Winning Bids
+@if (!Model.IsPublic) { @Html.Raw(" - PRIVATE"); }
+</h2>
+<table class="table pdf-table table-striped datatTable-CompanyQuestionOverview">
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(model => model.AuctionItems[0].ItemNumber)</th>
+            <th>@Html.LabelFor(model => model.AuctionItems[0].ItemName)</th>
+            <th>@Html.LabelFor(model => model.AuctionItems[0].WinningBidder.Paddle)</th>
+            @if (!Model.IsPublic)
+            {
+                <th>@Html.LabelFor(model => model.AuctionItems[0].WinningBidder.Name)</th>
+            }
+            <th style="text-align:right;">@Html.LabelFor(model => model.AuctionItems[0].AmountBid)</th>
+        </tr>
+    <tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.AuctionItems)
+    {
+        <tr>
+            <td>@item.ItemNumber</td>
+            <td>@item.ItemName</td>
+            @if (item.WinningBidder == null)
+            {
+                <td></td>
+                <td></td>
+            }
+            else
+            {
+                <td>@item.WinningBidder.Paddle</td>
+                if (!Model.IsPublic)
+                {
+                    <td>@item.WinningBidder.Name</td>
+                }
+
+            }
+            <td style="text-align:right;">$@item.AmountBid</td>
+        </tr>
+    }
+    </tbody>
+</table>

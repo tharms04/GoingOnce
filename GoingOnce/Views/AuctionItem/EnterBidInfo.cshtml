@@ -1,0 +1,166 @@
+﻿@model GoingOnce.Models.AuctionBidModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Enter Bids";
+}
+
+<h2>Enter Bids</h2>
+
+
+@using (Html.BeginForm("EnterBidInfo", "AuctionItem"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ItemNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ItemNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PaddleNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PaddleNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PaddleNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AmountBid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AmountBid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AmountBid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumBids, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumBids, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumBids, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enter" class="btn btn-default" id="enter_bid_button" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <table class="table table-striped table-bordered table-hover dataTables-example" id="auction_items_table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].ItemNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].ItemDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].ItemValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].StartBid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].AmountBid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].NumBids)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionItemList[0].AuctionType)
+                </th>
+            </tr>
+
+            @foreach (var item in Model.AuctionItemList)
+            {
+                <tr id="item_@item.ItemNumber" class="auction_item">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartBid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AmountBid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumBids)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuctionType)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+    <div class="form-horizontal">
+        <table class="table table-striped table-bordered table-hover dataTables-example" id="bidders_table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BidderList[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BidderList[0].Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BidderList[0].Paddle)
+                </th>
+            </tr>
+
+            @foreach (var bidder in Model.BidderList)
+            {
+                <tr id="bidder_@bidder.Paddle" class="bidder">
+                    <td>
+                        @Html.DisplayFor(modelItem => bidder.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => bidder.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => bidder.Paddle)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/auctionitems")
+}
+
+
+

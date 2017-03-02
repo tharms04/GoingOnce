@@ -1,0 +1,79 @@
+﻿@model GoingOnce.Models.Bidder
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Bidder</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paddle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paddle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreatedUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreatedUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModifiedUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModifiedUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserModified)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

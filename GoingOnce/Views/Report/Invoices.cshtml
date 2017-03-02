@@ -1,0 +1,102 @@
+﻿@model GoingOnce.Models.InvoiceModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
+    int itemCount = 0;
+}
+
+@foreach (var bidder in Model.WinningBidders)
+{
+    itemCount = itemCount + 1;
+    if (itemCount > 1)
+    {
+        <p style="page-break-after:always;"></p>
+    }
+    <div style="display:inline;">
+        <img src="~/Images/ccs.png" style="opacity:0.75; max-height:75px;" />
+    </div>
+    <h1>@Model.AuctionEvent.EventName Invoice - @Model.AuctionEvent.EventDate.ToString("yyyy/MM/dd")</h1>
+    <h4>Summary</h4>
+    <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview" style="border-top:solid; border-bottom:solid; border-color:darkgrey; border-width:thick;">
+        <tbody>
+            <tr>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Paddle): @bidder.Bidder.Paddle</td>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Name): @bidder.Bidder.Name</td>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Phone): @bidder.Bidder.Phone</td>
+            </tr>   
+            <tr>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].TotalAmount): @bidder.TotalAmount</td>
+                <td colspan="2">@Html.Label("Payment Method"):
+                    <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />CASH
+                    <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />CHEQUE
+                    <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />VISA
+                    <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />MASTERCARD
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span style="min-height:50px;"></span>
+    <h4>Item Details</h4>
+    <div style="min-height: 1000px;">
+        <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview" style="border-top :solid; border-bottom:solid; border-color:darkgrey; border-width:thick;">
+            <tbody>
+                @foreach (var item in bidder.AuctionItems)
+                {
+                    <tr>
+                        <td>@Html.LabelFor(model => model.WinningBidders[0].AuctionItems[0].ItemNumber): @item.ItemNumber</td>
+                        <td>@Html.LabelFor(model => model.WinningBidders[0].AuctionItems[0].ItemName): @item.ItemName</td>
+                        <td>@Html.LabelFor(model => model.WinningBidders[0].AuctionItems[0].AmountBid): @item.AmountBid</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">@item.ItemDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <h1 align="center"> CUSTOMER COPY </h1>
+    <div style="display:inline;">
+        <img src="~/Images/ccs.png" style="opacity:0.75; max-height:75px;" />
+    </div>
+    <h1>@Model.AuctionEvent.EventName Invoice - @Model.AuctionEvent.EventDate.ToString("yyyy/MM/dd")</h1>
+    <h4>Summary</h4>
+    <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview" style="border-top:solid; border-bottom:solid; border-color:darkgrey; border-width:thick;">
+        <tbody>
+            <tr>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Paddle): @bidder.Bidder.Paddle</td>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Name): @bidder.Bidder.Name</td>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Phone): @bidder.Bidder.Phone</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.WinningBidders[0].TotalAmount): @bidder.TotalAmount</td>
+                <td colspan="2">
+                    @Html.Label("Payment Method"):
+                <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />CASH
+                <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />CHEQUE
+                <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />VISA
+                <img src="~/Images/checkbox.png" style="margin-left: 50px; margin-right: 10px; max-height: 25px;" />MASTERCARD
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    <span style="min-height:50px;"></span>
+    <h4>Item Details</h4>
+    <div style="min-height: 1000px;">
+        <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview" style="border-top:solid; border-bottom:solid; border-color:darkgrey; border-width:thick;">
+            <tbody>
+                @foreach (var item in bidder.AuctionItems)
+                {
+                    <tr>
+                        <td>@Html.LabelFor(model => model.WinningBidders[0].AuctionItems[0].ItemNumber): @item.ItemNumber</td>
+                        <td>@Html.LabelFor(model => model.WinningBidders[0].AuctionItems[0].ItemName): @item.ItemName</td>
+                        <td>@Html.LabelFor(model => model.WinningBidders[0].AuctionItems[0].AmountBid): @item.AmountBid</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">@item.ItemDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <h1 align="center"> ORGANIZATION COPY </h1>
+        }

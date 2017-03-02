@@ -1,0 +1,40 @@
+﻿@model GoingOnce.Models.InvoiceModel
+@{
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
+}
+
+<div style="display:inline;">
+    <img src="~/Images/ccs.png" style="opacity:0.75; max-height:75px;" />
+</div>
+<h1>@Model.AuctionEvent.EventName - @Model.AuctionEvent.EventDate.ToString("yyyy/MM/dd")</h1>
+<h2>Paddle Totals
+@if (!Model.IsPublic) { @Html.Raw(" - PRIVATE"); }
+</h2>
+<table class="table pdf-table table-striped datatTable-CompanyQuestionOverview">
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Paddle)</th>
+            @if (!Model.IsPublic)
+            {
+                <th>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Name)</th>
+                <th>@Html.LabelFor(model => model.WinningBidders[0].Bidder.Phone)</th>
+            }
+            <th style="text-align:right;">@Html.LabelFor(model => model.WinningBidders[0].TotalAmount)</thstyle="text-align:right;">
+        </tr>
+    <tr>
+    </thead>
+    <tbody>
+    @foreach (var bidder in Model.WinningBidders)
+    {
+        <tr>
+            <td>@bidder.Bidder.Paddle</td>
+            @if (!Model.IsPublic)
+            {
+                <td>@bidder.Bidder.Name</td>
+                <td>@bidder.Bidder.Phone</td>
+            }
+            <td style="text-align:right;">$@bidder.TotalAmount</td>
+        </tr>
+    }
+    </tbody>
+</table>

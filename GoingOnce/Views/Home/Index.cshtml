@@ -1,0 +1,53 @@
+﻿@model GoingOnce.Models.DashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+@foreach (var auction in Model.Auctions)
+{
+    <h2>@auction.AuctionEvent.EventName - @auction.AuctionEvent.EventDate.ToString("yyyy/MM/dd")</h2>
+    <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview min-width: 250px;">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Auctions[0].BidderCount):
+            </td>
+            <td>
+                @auction.BidderCount
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Auctions[0].LiveItemTotal):
+            </td>
+            <td>
+                $@auction.LiveItemTotal
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Auctions[0].SilentItemTotal):
+            </td>
+            <td>
+                $@auction.SilentItemTotal
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Auctions[0].AuctionTotal):
+            </td>
+            <td>
+                $@auction.AuctionTotal
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Auctions[0].AvgSpend):
+            </td>
+            <td>
+                $@Html.FormatValue(auction.AvgSpend, "{0:N2}")
+            </td>
+        </tr>
+    </table>
+    <span style="min-height: 50px;"></span>
+}
+

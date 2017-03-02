@@ -1,0 +1,71 @@
+﻿@model GoingOnce.Models.BidSheetsReportModel
+
+@{
+    int itemCount = 0;
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
+}
+@foreach (var item in Model.AuctionItems)
+{
+    itemCount = itemCount + 1;
+    if (itemCount > 1)
+    {
+        <p style="page-break-after:always;"></p>
+    }
+    <div style="display:inline;">
+        <img src="~/Images/ccs.png" style="opacity:0.75; max-height:75px;" />
+    </div>
+    <h1 align="center">@item.ItemName</h1>
+    <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview">
+        <tbody>
+            <tr>
+                <td>@Html.LabelFor(model => model.AuctionItems[0].ItemNumber): @item.ItemNumber</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AuctionItems[0].ItemDescription): @item.ItemDescription</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.AuctionItems[0].ItemValue): @if (item.ItemValue == 0)
+                    {
+                        @Html.Raw("Priceless")
+                    }
+                    else
+                    {
+                        @item.ItemValue
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AuctionItems[0].BidIncrement): @item.BidIncrement</td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="position:relative;">
+        <table class="table pdf-table table-striped datatTable-CompanyQuestionOverview">
+            <thead>
+                <tr>
+                    <th>Bid #</th>
+                    <th class="text-center">Paddle #</th>
+                    <th class="text-center">Bid Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (var i = 1; i <= 20; i++)
+                {
+                    <tr>
+                        <td style="height: 50px; font-size:20px; ">@i</td>
+                        <td class="text-center"></td>
+                        <td class="text-center" style="font-size:20px;">
+                            @if (i == 1)
+                            {
+                                @item.StartBid
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
